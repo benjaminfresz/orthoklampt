@@ -149,9 +149,12 @@
     <key>S</key>
   </hotkey>
   <hotkey>
-    <name>print_robot_info</name>
-    <descr>Print Robot</descr>
+    <name>print_config</name>
     <key>i</key>
+  </hotkey>
+  <hotkey>
+    <name>print_planner_debug_info</name>
+    <key>P</key>
   </hotkey>
   <hotkey>
     <name>draw_robot_previous</name>

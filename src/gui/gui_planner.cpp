@@ -1,6 +1,7 @@
 #include "gui/gui_planner.h"
 #include "elements/path_pwl.h"
 #include "gui/drawMotionPlanner.h"
+#include "info.h"
 
 PlannerBackend::PlannerBackend(RobotWorld *world) : 
   ForceFieldBackend(world)
@@ -147,6 +148,26 @@ bool PlannerBackend::OnCommand(const string& cmd,const string& args){
     }else{
       std::cout << "no active control path" << std::endl;
     }
+
+  }else if(cmd=="print_planner_debug_info"){
+    MotionPlanner* planner = planners.at(active_planner);
+    Robot* robot = world->robots[0];
+    Info info;
+
+    Config qold = robot->q;
+    Config qi = planner->GetInput().q_init;
+    Config qg = planner->GetInput().q_goal;
+
+    robot->q = qi;
+    robot->UpdateDynamics();
+    info(robot);
+
+    robot->q = qg;
+    robot->UpdateDynamics();
+    info(robot);
+
+    robot->q = qold;
+    robot->UpdateDynamics();
 
   }else if(cmd=="save_current_path"){
     //state("save_current_path").activate();

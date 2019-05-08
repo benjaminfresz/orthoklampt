@@ -142,29 +142,23 @@ void QuotientGraph::Init()
   }
 
   if(const ob::State *st = pis_.nextStart()){
-    if (st != nullptr){
-      q_start = new Configuration(Q1, st);
-      q_start->isStart = true;
-      v_start = AddConfiguration(q_start);
-    }
-  }
-  if (q_start == nullptr){
+    q_start = new Configuration(Q1, st);
+    q_start->isStart = true;
+    v_start = AddConfiguration(q_start);
+  }else{
     OMPL_ERROR("%s: There are no valid initial states!", getName().c_str());
     exit(0);
   }
 
   if(const ob::State *st = pis_.nextGoal()){
-    if (st != nullptr){
-      q_goal = new Configuration(Q1, st);
-      q_goal->isGoal = true;
-    }
-  }
-  if (q_goal == nullptr){
+    q_goal = new Configuration(Q1, st);
+    q_goal->isGoal = true;
+  }else{
     OMPL_ERROR("%s: There are no valid goal states!", getName().c_str());
     exit(0);
   }
-  //unsigned long int nrStartStates = boost::num_vertices(G);
-  //OMPL_INFORM("%s: ready with %lu states already in datastructure", getName().c_str(), nrStartStates);
+  unsigned long int nrStartStates = boost::num_vertices(G);
+  OMPL_INFORM("%s: ready with %lu states already in datastructure", getName().c_str(), nrStartStates);
 }
 
 // void QuotientGraph::growRoadmap(const ob::PlannerTerminationCondition &ptc, ob::State *workState)

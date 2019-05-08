@@ -72,8 +72,8 @@ CSpaceOMPL* MotionPlanner::ComputeCSpace(const std::string type, const uint robo
     std::string str_dimension = type.substr(1);
     int N = boost::lexical_cast<int>(str_dimension);
     cspace_level = factory.MakeGeometricCSpaceFixedBase(world, robot_inner_idx, N);
-
   }
+
   if(robot_inner_idx != robot_outer_idx){
     cspace_level->SetSufficient(robot_outer_idx);
   }
@@ -278,6 +278,7 @@ void MotionPlanner::AdvanceUntilSolution()
     StrategyOutput output(cspace_levels.back());
     strategy->Plan(output);
     output.GetHierarchicalRoadmap( hierarchy, cspace_levels );
+    std::cout << output << std::endl;
   }
 
 }
